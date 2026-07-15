@@ -754,3 +754,93 @@ section:has(.contact-layout) { background: linear-gradient(180deg, var(--blue-so
 a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible {
   outline: 2px solid var(--violet); outline-offset: 3px; border-radius: 4px;
 }
+
+/* ============================================================
+   MOBILE RESPONSIVE PATCH
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+============================================================ */
+
+/* ---- Tablets & small laptops (<=1024px) ---- */
+@media (max-width: 1024px) {
+  .card-grid, .values-grid, .news-grid,
+  .people-grid { grid-template-columns: repeat(2, 1fr); }
+  .gallery-grid { grid-template-columns: repeat(3, 1fr); }
+  .steps { grid-template-columns: repeat(2, 1fr); gap: 30px; }
+  .stats-inner { grid-template-columns: repeat(2, 1fr); gap: 40px; }
+  .feature-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ---- Large phones / small tablets (<=900px) ---- */
+@media (max-width: 900px) {
+  .hero-banner { height: 80vh; min-height: 460px; }
+  .hero-banner-title { font-size: clamp(2.2rem, 10vw, 3.4rem); }
+  .contact-layout { grid-template-columns: 1fr; gap: 40px; }
+  .tour-content { align-items: flex-start; }
+}
+
+/* ---- Phones (<=720px) — nav collapses to hamburger menu ---- */
+@media (max-width: 720px) {
+  .nav-links {
+    position: fixed; top: 64px; left: 0; right: 0; bottom: 0;
+    background: var(--paper, #fff);
+    flex-direction: column; align-items: flex-start;
+    padding: 30px 24px; gap: 22px;
+    transform: translateX(100%);
+    transition: transform .4s ease;
+    overflow-y: auto;
+  }
+  .nav-links.open { transform: translateX(0); }
+  .nav-links a { font-size: 1.1rem; }
+  .nav-cta { width: 100%; text-align: center; }
+  .nav-toggle { display: flex; }
+
+  .card-grid, .values-grid, .news-grid, .people-grid { grid-template-columns: 1fr; }
+  .gallery-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 130px; }
+  .gallery-item.wide { grid-column: span 2; }
+  .gallery-item.tall { grid-row: span 1; }
+  .steps { grid-template-columns: 1fr; }
+  .stats-inner { grid-template-columns: 1fr; }
+  .footer-inner { grid-template-columns: 1fr 1fr; }
+  .cta-inner { flex-direction: column; align-items: flex-start; }
+  .tab-bar { overflow-x: auto; white-space: nowrap; }
+
+  /* shrink oversized desktop section padding, incl. inline-styled sections */
+  section[style*="padding"] { padding: 56px 20px !important; }
+  .feature-band, .academics-preview, .tour-band, .page-hero { padding-top: 56px; padding-bottom: 56px; }
+  .stats { padding: 50px 20px; }
+  .testimonial { padding: 46px 20px 70px; }
+  .cta-band { padding: 64px 20px; }
+  .footer { padding: 50px 20px 24px; }
+  .hero-text { padding: 54px 20px 46px; }
+  .wrap { padding: 0 20px; }
+
+  /* wide tables scroll horizontally instead of squeezing columns */
+  .deadline-table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; white-space: nowrap; }
+  .deadline-table thead, .deadline-table tbody, .deadline-table tr { display: table; width: 100%; table-layout: fixed; }
+}
+
+/* ---- Small phones (<=480px) ---- */
+@media (max-width: 480px) {
+  .hero-banner-tag { top: 16px; left: 16px; padding: 7px 14px; font-size: 0.66rem; }
+  .hero-banner-content { padding: 0 18px 46px; }
+  .hero-banner-title { font-size: clamp(2rem, 11vw, 2.8rem); }
+  .footer-inner { grid-template-columns: 1fr; gap: 32px; }
+  .gallery-grid { grid-template-columns: 1fr; grid-auto-rows: 200px; }
+  .gallery-item.wide, .gallery-item.tall { grid-column: span 1; grid-row: span 1; }
+  .stat-num, .stat-suffix { font-size: 2rem; }
+  .section-head { margin-bottom: 30px; }
+  .btn-lg { width: 100%; justify-content: center; }
+}
+
+/* ---- Respect reduced-motion preference on all devices ---- */
+@media (prefers-reduced-motion: reduce) {
+  *, .marquee-track, .aurora-blob, .hero-banner-img,
+  .hero-banner-particles span, .scroll-arrow,
+  .hero-banner-kicker, .hero-banner-title, .hero-scroll-cue,
+  .tour-card img, .cta-band, .play-btn, .cursor-ring {
+    animation: none !important; transition: none !important;
+  }
+  .hero-banner-kicker, .hero-banner-title, .hero-scroll-cue { opacity: 1; }
+  .reveal { opacity: 1; transform: none; }
+  .cursor-dot, .cursor-ring { display: none; }
+}
